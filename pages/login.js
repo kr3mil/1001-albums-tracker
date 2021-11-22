@@ -18,11 +18,48 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import Paragraph from '../components/paragraph'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
+import { useEffect, useState } from 'react'
+import Router from 'next/router'
 
-const login = () => {
+const axios = require('axios')
+
+export async function getStaticProps(context) {
+  const user = process.env.DB_USERNAME ? process.env.DB_USERNAME : ''
+  const pass = process.env.DB_PASSWORD ? process.env.DB_PASSWORD : ''
+
+  return {
+    props: { user, pass } // will be passed to the page component as props
+  }
+}
+
+const login = props => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    console.log('Getting ENV username & pass')
+    console.log(props)
+
+    const { user, pass } = props
+    if (user) {
+      setUsername(user)
+    }
+    if (pass) {
+      setPassword(pass)
+    }
+  }, [])
+
   const handleLoginClicked = () => {
     // TODO
     // Use next auth js?
+    axios.get('/api/login').then(res => {
+      if (res.status === 200) {
+        if (res.data.auth === true) {
+          console.log('LOGGED IN')
+          Router.push('/app')
+        }
+      }
+    })
   }
 
   const handleSignUpClicked = () => {
@@ -45,11 +82,19 @@ const login = () => {
 
             <FormControl id="username">
               <FormLabel>Username / Email address</FormLabel>
-              <Input type="username" />
+              <Input
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                type="username"
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                type="password"
+              />
               <FormHelperText>
                 <Link href="/forgotpassword">Forgot password?</Link>
               </FormHelperText>
