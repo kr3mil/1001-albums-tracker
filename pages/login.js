@@ -21,8 +21,6 @@ import Section from '../components/section'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 
-const axios = require('axios')
-
 export async function getStaticProps(context) {
   const user = process.env.DB_USERNAME ? process.env.DB_USERNAME : ''
   const pass = process.env.DB_PASSWORD ? process.env.DB_PASSWORD : ''
@@ -38,7 +36,6 @@ const login = props => {
 
   useEffect(() => {
     console.log('Getting ENV username & pass')
-    console.log(props)
 
     const { user, pass } = props
     if (user) {
@@ -49,19 +46,21 @@ const login = props => {
     }
   }, [])
 
-  const handleLoginClicked = () => {
+  const handleLoginClicked = async () => {
     // TODO
     // Use next auth js?
     // Display error popup on incorrect login
     // If username exists but wrong password show error on password box
-    axios.get('/api/login').then(res => {
-      if (res.status === 200) {
-        if (res.data.auth === true) {
-          console.log('LOGGED IN')
-          Router.push('/app')
-        }
+    const res = await fetch('/api/login')
+
+    if (res.status === 200) {
+      const json = await res.json()
+      console.log(json)
+      if (json.auth === true) {
+        console.log('LOGGED IN')
+        Router.push('/app')
       }
-    })
+    }
   }
 
   const handleSignUpClicked = () => {
