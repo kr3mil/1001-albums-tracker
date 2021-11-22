@@ -63,7 +63,7 @@ const login = props => {
   }
 
   const handleSignUpClicked = () => {
-    // TODO
+    Router.push('/signup')
   }
 
   return (
