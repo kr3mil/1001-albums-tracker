@@ -28,7 +28,7 @@ export async function getStaticProps(context) {
   const pass = process.env.DB_PASSWORD ? process.env.DB_PASSWORD : ''
 
   return {
-    props: { user, pass } // will be passed to the page component as props
+    props: { user, pass }
   }
 }
 
@@ -52,6 +52,8 @@ const login = props => {
   const handleLoginClicked = () => {
     // TODO
     // Use next auth js?
+    // Display error popup on incorrect login
+    // If username exists but wrong password show error on password box
     axios.get('/api/login').then(res => {
       if (res.status === 200) {
         if (res.data.auth === true) {
