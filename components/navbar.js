@@ -78,6 +78,9 @@ const Navbar = props => {
           <LinkItem href="/login" path={path}>
             Login
           </LinkItem>
+          <LinkItem href="/signup" path={path}>
+            Sign Up
+          </LinkItem>
         </Stack>
 
         <Box flex={1} align="right">
@@ -98,6 +101,9 @@ const Navbar = props => {
                 <MenuDivider />
                 <NextLink href="/login" passHref>
                   <MenuItem as={Link}>Login</MenuItem>
+                </NextLink>
+                <NextLink href="/signup" passHref>
+                  <MenuItem as={Link}>Sign Up</MenuItem>
                 </NextLink>
               </MenuList>
             </Menu>
