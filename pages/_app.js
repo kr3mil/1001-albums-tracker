@@ -12,7 +12,7 @@ function Website({ Component, pageProps: { session, ...pageProps }, router }) {
       <ChakraProvider theme={theme}>
         <Fonts />
         {router.route === '/app' ? (
-          <Component {...pageProps} key={router.route} />
+          <Component {...pageProps} router={router} key={router.route} />
         ) : (
           <Layout router={router}>
             <AnimatePresence exitBeforeEnter initial={true}>
