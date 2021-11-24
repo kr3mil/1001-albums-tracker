@@ -4,21 +4,24 @@ import Fonts from '../components/fonts'
 import theme from '../lib/theme'
 import { AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
+import { SessionProvider } from 'next-auth/react'
 
-function Website({ Component, pageProps, router }) {
+function Website({ Component, pageProps: { session, ...pageProps }, router }) {
   return (
-    <ChakraProvider theme={theme}>
-      <Fonts />
-      {router.route === '/app' ? (
-        <Component {...pageProps} key={router.route} />
-      ) : (
-        <Layout router={router}>
-          <AnimatePresence exitBeforeEnter initial={true}>
-            <Component {...pageProps} key={router.route} />
-          </AnimatePresence>
-        </Layout>
-      )}
-    </ChakraProvider>
+    <SessionProvider session={session}>
+      <ChakraProvider theme={theme}>
+        <Fonts />
+        {router.route === '/app' ? (
+          <Component {...pageProps} key={router.route} />
+        ) : (
+          <Layout router={router}>
+            <AnimatePresence exitBeforeEnter initial={true}>
+              <Component {...pageProps} key={router.route} />
+            </AnimatePresence>
+          </Layout>
+        )}
+      </ChakraProvider>
+    </SessionProvider>
   )
 }
 
