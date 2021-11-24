@@ -1,7 +1,7 @@
 {
-  "name": "craftzdog-homepage",
+  "name": "1001-albums-tracker",
   "version": "1.0.0",
-  "description": "Takuya's website",
+  "description": "1001 Albums Tracker",
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
@@ -13,19 +13,20 @@
   "author": "Kamil Zurek",
   "license": "MIT",
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.15",
-    "@chakra-ui/react": "^1.6.9",
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "framer-motion": "^4.1.17",
-    "next": "^11.1.2",
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/react": "^1.7.2",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "framer-motion": "^5.3.2",
+    "next": "^12.0.4",
+    "next-auth": "^4.0.0-beta.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-next": "^11.1.2",
+    "eslint": "^8.3.0",
+    "eslint-config-next": "^12.0.4",
     "prettier": "^2.4.1"
   }
 }
