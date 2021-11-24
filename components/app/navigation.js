@@ -45,7 +45,6 @@ const Navigation = ({ width, height }) => {
         <NavItem>Profile</NavItem>
         <NavItem
           onClick={() => {
-            console.log('Signing Out')
             signOut({
               callbackUrl: `/login`
             })

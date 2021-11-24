@@ -1,26 +1,9 @@
 import { Spinner } from '@chakra-ui/spinner'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import Router from 'next/router'
 import { useEffect, useState } from 'react'
 import Layout from '../components/layouts/article'
-import NextLink from 'next/link'
-import {
-  Link,
-  Container,
-  Heading,
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Input,
-  VStack,
-  Spacer,
-  HStack,
-  Text
-} from '@chakra-ui/react'
-import { ChevronRightIcon } from '@chakra-ui/icons'
-import Paragraph from '../components/paragraph'
+import { Container, Heading, Box, Button } from '@chakra-ui/react'
 import Section from '../components/section'
 
 export async function getStaticProps(context) {
@@ -38,29 +21,27 @@ export default function Component(props) {
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    console.log('Getting ENV username & pass')
+    const env = process.env.NODE_ENV
 
-    const { user, pass } = props
-    if (user) {
-      setUsername(user)
-    }
-    if (pass) {
-      setPassword(pass)
+    if (env === 'development') {
+      console.log('DEBUG Getting ENV username & pass')
+
+      const { user, pass } = props
+      if (user) {
+        setUsername(user)
+      }
+      if (pass) {
+        setPassword(pass)
+      }
     }
   }, [])
 
   const handleLoginClicked = async () => {
-    // TODO
-    // Use next auth js?
-    // Display error popup on incorrect login
-    // If username exists but wrong password show error on password box
     const res = await fetch('/api/login')
 
     if (res.status === 200) {
       const json = await res.json()
-      console.log(json)
       if (json.auth === true) {
-        console.log('LOGGED IN')
         Router.push('/app')
       }
     }
@@ -71,8 +52,6 @@ export default function Component(props) {
   }
 
   useEffect(() => {
-    console.log(session)
-
     if (session) {
       Router.push('/app')
     }

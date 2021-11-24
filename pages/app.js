@@ -13,7 +13,6 @@ const App = props => {
       const res = await fetch('/api/getSession')
       const json = await res.json()
       if (json.auth) {
-        console.log(router)
         setIsLoggedIn(true)
       } else {
         router.push('/login')
