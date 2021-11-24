@@ -19,7 +19,11 @@ const App = props => {
       }
     }
 
-    getSession()
+    if (process.env.NODE_ENV === 'development') {
+      setIsLoggedIn(true)
+    } else {
+      getSession()
+    }
   }, [])
 
   return isLoggedIn ? (

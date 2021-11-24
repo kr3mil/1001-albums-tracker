@@ -1,7 +1,8 @@
-import { VStack, Box, Text } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { VStack, Box, Text, Tooltip } from '@chakra-ui/react'
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import styles from './navigation.module.css'
 import { providers, signOut } from 'next-auth/react'
+import { useState } from 'react'
 
 const NavItem = props => {
   const { children, onClick } = props
@@ -23,35 +24,66 @@ const NavItem = props => {
 }
 
 const Navigation = ({ width, height }) => {
-  const toggleMenuClicked = () => {}
+  const [isExpanded, setIsExpanded] = useState(true)
+  const toggleMenuClicked = () => {
+    console.log('CLICKED TOGGLE MENU')
+    setIsExpanded(!isExpanded)
+  }
 
   return (
-    <VStack>
-      <HamburgerIcon
-        alignSelf="flex-start"
-        ml="10px"
-        mt="10px"
-        w="30px"
-        h="30px"
-        onClick={toggleMenuClicked}
-      />
-      <VStack
-        w={width}
-        h={`calc(${height} - 50px)`}
-        className={styles.NavParent}
-      >
-        <NavItem>Home</NavItem>
-        <NavItem>Albums</NavItem>
-        <NavItem>Profile</NavItem>
-        <NavItem
-          onClick={() => {
-            signOut({
-              callbackUrl: `/login`
-            })
-          }}
-        >
-          Sign Out
-        </NavItem>
+    <VStack
+      backgroundColor="rgba(52, 52, 52, 0.4)"
+      w={width}
+      h={height}
+      borderRight="1px"
+    >
+      {isExpanded ? (
+        <Tooltip label="Collapse">
+          <ChevronLeftIcon
+            alignSelf="flex-start"
+            ml="5px"
+            mt="10px"
+            w="30px"
+            h="30px"
+            onClick={toggleMenuClicked}
+          />
+        </Tooltip>
+      ) : (
+        <Tooltip label="Expand">
+          <ChevronRightIcon
+            alignSelf="flex-start"
+            ml="5px"
+            mt="10px"
+            w="30px"
+            h="30px"
+            onClick={toggleMenuClicked}
+          />
+        </Tooltip>
+      )}
+      <VStack className={styles.NavParent} spacing={0}>
+        <Box display="flex" w="full" h="full">
+          <VStack className={styles.TopParent} spacing={1}>
+            <NavItem>Top Item 1</NavItem>
+            <NavItem>Top Item 2</NavItem>
+            <NavItem>Top Item 3</NavItem>
+          </VStack>
+        </Box>
+        <Box display="flex" w="full" h="full">
+          <VStack className={styles.BottomParent} spacing={1}>
+            <NavItem>Home</NavItem>
+            <NavItem>Albums</NavItem>
+            <NavItem>Profile</NavItem>
+            <NavItem
+              onClick={() => {
+                signOut({
+                  callbackUrl: `/login`
+                })
+              }}
+            >
+              Sign Out
+            </NavItem>
+          </VStack>
+        </Box>
       </VStack>
     </VStack>
   )
