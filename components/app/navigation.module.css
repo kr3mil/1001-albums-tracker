@@ -20,6 +20,12 @@
   opacity: 0.4;
 }
 
+.TopParent > * {
+  border-bottom: 1px;
+  border: 1px;
+  border-color: white;
+}
+
 .BottomParent > *:hover {
   opacity: 0.4;
 }
