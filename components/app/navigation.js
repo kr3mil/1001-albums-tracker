@@ -5,6 +5,7 @@ import { useState } from 'react'
 import LogoutIcon from '../icons/logout'
 import BookIcon from '../icons/bookOpen'
 import UserCircleIcon from '../icons/userCircle'
+import HomeIcon from '../icons/home'
 
 const NavItem = props => {
   const { children, onClick, icon, isExpanded } = props
@@ -35,7 +36,7 @@ const NavItem = props => {
   )
 }
 
-const Navigation = ({ width, height }) => {
+const Navigation = ({ width, height, setSelection }) => {
   const [isExpanded, setIsExpanded] = useState(true)
   const toggleMenuClicked = () => {
     console.log('CLICKED TOGGLE MENU')
@@ -99,11 +100,25 @@ const Navigation = ({ width, height }) => {
             w="full"
             spacing={0}
           >
-            <NavItem isExpanded={isExpanded}>Home</NavItem>
-            <NavItem isExpanded={isExpanded} icon={<BookIcon />}>
+            <NavItem
+              isExpanded={isExpanded}
+              onClick={() => setSelection('Home')}
+              icon={<HomeIcon />}
+            >
+              Home
+            </NavItem>
+            <NavItem
+              isExpanded={isExpanded}
+              onClick={() => setSelection('Albums')}
+              icon={<BookIcon />}
+            >
               Albums
             </NavItem>
-            <NavItem isExpanded={isExpanded} icon={<UserCircleIcon />}>
+            <NavItem
+              isExpanded={isExpanded}
+              onClick={() => setSelection('Profile')}
+              icon={<UserCircleIcon />}
+            >
               Profile
             </NavItem>
             <NavItem

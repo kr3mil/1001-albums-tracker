@@ -1,11 +1,12 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/spinner'
 import { useEffect, useState } from 'react'
+import AlbumsPage from '../components/app/albums'
 import Navigation from '../components/app/navigation'
 
 const App = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
+  const [selection, setSelection] = useState('Home') // Home, Albums, Profile
   const { router } = props
 
   useEffect(() => {
@@ -26,10 +27,25 @@ const App = props => {
     }
   }, [])
 
+  const renderAppContent = () => {
+    switch (selection) {
+      case 'Home':
+        return <Text>Home</Text>
+      case 'Albums':
+        return <AlbumsPage />
+      case 'Profile':
+        return <Text>Profile</Text>
+      default:
+        break
+    }
+  }
+
   return isLoggedIn ? (
-    <HStack alignItems="flex-start" w="100vw" h="100vh">
-      <Navigation width="160px" height="100vh" />
-      <Text>TODO</Text>
+    <HStack alignItems="flex-start" w="100vw" h="100vh" spacing={0}>
+      <Navigation width="160px" height="100vh" setSelection={setSelection} />
+      <Box w="full" h="full">
+        {renderAppContent()}
+      </Box>
     </HStack>
   ) : (
     <Box
