@@ -8,7 +8,7 @@ import BookIcon from '../icons/bookOpen'
 import UserCircleIcon from '../icons/userCircle'
 
 const NavItem = props => {
-  const { children, onClick, icon } = props
+  const { children, onClick, icon, isExpanded } = props
 
   return (
     <Box
@@ -28,7 +28,7 @@ const NavItem = props => {
       ) : (
         <Box ml="10px" w="20px" h="20px" bgColor="red"></Box>
       )}
-      <Text ml="5px">{children}</Text>
+      {isExpanded && <Text ml="5px">{children}</Text>}
     </Box>
   )
 }
@@ -43,7 +43,7 @@ const Navigation = ({ width, height }) => {
   return (
     <VStack
       backgroundColor="rgba(52, 52, 52, 0.4)"
-      w={width}
+      w={isExpanded ? width : '45px'}
       h={height}
       borderRight="1px"
       borderColor="gray"
@@ -74,17 +74,22 @@ const Navigation = ({ width, height }) => {
       <VStack className={styles.NavParent} spacing={0}>
         <Box display="flex" w="full" h="full">
           <VStack className={styles.TopParent} spacing={1}>
-            <NavItem>Top Item 1</NavItem>
-            <NavItem>Top Item 2</NavItem>
-            <NavItem>Top Item 3</NavItem>
+            <NavItem isExpanded={isExpanded}>Top Item 1</NavItem>
+            <NavItem isExpanded={isExpanded}>Top Item 2</NavItem>
+            <NavItem isExpanded={isExpanded}>Top Item 3</NavItem>
           </VStack>
         </Box>
         <Box display="flex" w="full" h="full">
           <VStack className={styles.BottomParent} spacing={1}>
-            <NavItem>Home</NavItem>
-            <NavItem icon={<BookIcon />}>Albums</NavItem>
-            <NavItem icon={<UserCircleIcon />}>Profile</NavItem>
+            <NavItem isExpanded={isExpanded}>Home</NavItem>
+            <NavItem isExpanded={isExpanded} icon={<BookIcon />}>
+              Albums
+            </NavItem>
+            <NavItem isExpanded={isExpanded} icon={<UserCircleIcon />}>
+              Profile
+            </NavItem>
             <NavItem
+              isExpanded={isExpanded}
               icon={<LogoutIcon />}
               onClick={() => {
                 signOut({
