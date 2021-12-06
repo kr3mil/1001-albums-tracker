@@ -1,9 +1,0 @@
-.NavParent {
-  background-color: rgba(52, 52, 52, 0.4);
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.NavParent > *:hover {
-  opacity: 0.4;
-}
