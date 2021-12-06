@@ -9,6 +9,7 @@ Albums = []
 URL = "http://www.1001albumsyoumusthearbeforeyoudie.net/albums-from-"
 
 path = os.path.join(os.getcwd(), "images")
+os.mkdir(path)
 
 for x in range(1955, 2019):
   os.mkdir(os.path.join(path, str(x)))
@@ -29,14 +30,12 @@ for x in range(1955, 2019):
     caption = caption_element.text.strip()
 
     img_data = requests.get(image_link).content
-    file_name = caption.replace(' ', '-') + ".jpg"
+    file_name = os.path.basename(image_link)
     with open(os.path.join(path, str(x), file_name), 'wb') as handler:
       handler.write(img_data)
 
-    print()
-    print()
-    print()
-    Albums.append({"title": title, "src": image_link, "srcLocal": str(x) + "/" + file_name, "caption": caption})
+    print(str(x) + " - " + title + " - " + caption);
+    Albums.append({"title": title, "src": image_link, "srcLocal": str(x) + "/" + file_name, "caption": caption, "year": str(x)})
   
 with open(os.path.join(os.getcwd(), "config.json"), 'w') as my_file:
   json.dump(Albums, my_file, indent=4)

@@ -7,7 +7,22 @@ import Navigation from '../components/app/navigation'
 const App = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [selection, setSelection] = useState('Home') // Home, Albums, Profile
+  const [albums, setAlbums] = useState([])
+
   const { router } = props
+
+  const getAlbums = async () => {
+    fetch('albums/config.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        setAlbums(json)
+      })
+  }
 
   useEffect(() => {
     const getSession = async () => {
@@ -19,6 +34,8 @@ const App = props => {
         router.push('/login')
       }
     }
+
+    getAlbums()
 
     if (process.env.NODE_ENV === 'development') {
       setIsLoggedIn(true)
@@ -32,7 +49,7 @@ const App = props => {
       case 'Home':
         return <Text>Home</Text>
       case 'Albums':
-        return <AlbumsPage />
+        return <AlbumsPage albums={albums} />
       case 'Profile':
         return <Text>Profile</Text>
       default:
@@ -40,7 +57,7 @@ const App = props => {
     }
   }
 
-  return isLoggedIn ? (
+  return isLoggedIn && albums.length > 0 ? (
     <HStack alignItems="flex-start" w="100vw" h="100vh" spacing={0}>
       <Navigation width="160px" height="100vh" setSelection={setSelection} />
       <Box w="full" h="full">
