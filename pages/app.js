@@ -35,13 +35,8 @@ const App = props => {
       }
     }
 
+    getSession()
     getAlbums()
-
-    if (process.env.NODE_ENV === 'development') {
-      setIsLoggedIn(true)
-    } else {
-      getSession()
-    }
   }, [])
 
   const renderAppContent = () => {

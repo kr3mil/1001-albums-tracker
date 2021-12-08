@@ -1,6 +1,10 @@
 import { getSession } from 'next-auth/react'
 
 export default async (req, res) => {
+  if (process.env.NODE_ENV === 'development') {
+    res.send({ auth: true })
+  }
+
   const session = await getSession({ req })
 
   if (session) {
