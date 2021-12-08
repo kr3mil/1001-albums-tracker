@@ -2,6 +2,7 @@ import { Box, HStack, Text } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/spinner'
 import { useEffect, useState } from 'react'
 import AlbumsPage from '../components/app/albums'
+import HomePage from '../components/app/home'
 import Navigation from '../components/app/navigation'
 
 const App = props => {
@@ -42,7 +43,7 @@ const App = props => {
   const renderAppContent = () => {
     switch (selection) {
       case 'Home':
-        return <Text>Home</Text>
+        return <HomePage albums={albums} />
       case 'Albums':
         return <AlbumsPage albums={albums} />
       case 'Profile':

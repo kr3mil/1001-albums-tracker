@@ -6,7 +6,7 @@ const AlbumsGallery = ({ albums }) => {
   return albums.length > 0 ? (
     <SimpleGrid columns={[2, 2, 3]} spacing={2}>
       {albums.map((album, index) => (
-        <GalleryItem album={album} key={index} />
+        <GalleryItem album={album} key={index} editable />
       ))}
     </SimpleGrid>
   ) : (

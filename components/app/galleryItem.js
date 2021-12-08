@@ -1,7 +1,7 @@
 import { Box, Image, Text, HStack } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
 
-const GalleryItem = ({ album }) => {
+const GalleryItem = ({ album, editable }) => {
   return (
     <Box
       display="flex"
@@ -15,6 +15,12 @@ const GalleryItem = ({ album }) => {
       borderRadius="lg"
       pl="10px"
       pr="10px"
+      onClick={() => {
+        if (editable) {
+          // TODO Open edit page where user can change review score ect
+          alert(`Open edit page for ${album.title} - ${album.caption}`)
+        }
+      }}
     >
       <Box fontWeight="semiBold" as="h1" lineHeight="tight">
         {album.title}

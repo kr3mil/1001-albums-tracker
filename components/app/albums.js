@@ -18,7 +18,7 @@ const AlbumsPage = props => {
         value={selectedYear}
         onChange={e => setSelectedYear(e.target.value)}
       >
-        {_.range(1955, 2011).map(year => (
+        {_.range(1955, 2019).map(year => (
           <option key={year} value={year}>
             {year}
           </option>
